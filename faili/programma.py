@@ -13,7 +13,7 @@ def nolasit(faila_nosaukums):
         rindas = fails.readlines()
     return rindas
 
-print(nolasit("faili/teksts.txt"))
+# print(nolasit("faili/teksts.txt"))
 
 vardi = ["Anna", "Maija", "Jānis", "Kaspars"]
 uzvardi = ["Bērziņa", "Paija", "Ozols", "Kasprets"]
