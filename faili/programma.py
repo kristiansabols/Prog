@@ -1,48 +1,67 @@
 def ierakstit(teksts, faila_nosaukums):
-    fails = open(faila_nosaukums, "w", encoding='utf-8')
-    fails.write(teksts)
-    fails.close()
+    with open(faila_nosaukums, "w", encoding='utf-8') as fails:
+        fails.write(teksts)
 
 def pierakstit(teksts, faila_nosaukums):
-    fails = open(faila_nosaukums, "a", encoding='utf-8')
-    fails.write(teksts)
-    fails.close()
+    with open(faila_nosaukums, "a", encoding='utf-8') as fails:
+        fails.write(teksts)
 
 def nolasit(faila_nosaukums):
     with open(faila_nosaukums, "r", encoding="utf-8") as fails:
         rindas = fails.readlines()
     return rindas
 
-# print(nolasit("faili/teksts.txt"))
-
 vardi = ["Anna", "Maija", "Jānis", "Kaspars"]
 uzvardi = ["Bērziņa", "Paija", "Ozols", "Kasprets"]
-vecums = [23,150,89,11]
-dzimums = ["s", "s", "v", "v"]
+vecumi = [23, 150, 89, 11]
+dzimumi = ["s", "s", "v", "v"]
 
 ierakstit("", "faili/cilveki.txt")
-for i in range( len(vardi) ):
-    if dzimums[i] == "s":
+for i in range(len(vardi)):
+    if dzimumi[i] == "s":
         rakstamais = "sieviete"
     else:
         rakstamais = "vīrietis"
-    teksts = "{} {} - {}, {} \n".format(vardi[i], uzvardi[i], vecums[i], rakstamais)
-    pierakstit(teksts, "faili/cilveki.txt" )
-
-
-# Izveidojas fails, kur katrā rindiņā ir vārds, uzvārds - vecums
-# Marta Britāla - 32, sieviete
-# pierakstit("Sveiki, visi!\n \" \n ", "faili/teksts.txt")
-# Faili, kuru nosaukums ir cilveks0.txt, 
-# saturs - Sveiki, Marta! Jūs esat laimējusi vecums*100 (3200) dolārus!
+    teksts = "{} {} - {}, {}\n".format(vardi[i], uzvardi[i], vecumi[i], rakstamais)
+    pierakstit(teksts, "faili/cilveki.txt")
 
 visi = nolasit("faili/cilveki.txt")
-vardi = []
-vecums = []
+vecumi = []
 for cilveks in visi:
     info = cilveks.split(" ")
-    vardi.append(info[0])
-    vecums1 = int(info[3].rstrip(","))
-    vecums.append(vecums1)
+    vecums = int(info[3].rstrip(","))
+    vecumi.append(vecums)
 
-print(vecums)
+print(vecumi)
+
+# Marta - vards.txt
+vards1 = ["Marta"]
+uzvards1 = ["Britāla"]
+vecums2 = [32]
+dzimums1 = ["s"]
+
+teksts = ""
+for i in range(len(vards1)):
+    if dzimums1[i] == "s":
+        rakstamais = "sieviete"
+    teksts += "{} {} - {}, {}\n".format(vards1[i], uzvards1[i], vecums2[i], rakstamais)
+
+ierakstit(teksts, "faili/vards.txt")
+
+with open("faili/vards.txt", 'r', encoding='utf-8') as f:
+    visi = f.read()
+print(visi)
+
+# Jūs esat laimējusi  - cilveks0.txt
+for i in range(len(vards1)):
+    if dzimums1[i] == "s":
+        rakstamais = "sieviete"
+    teksts = "Sveiki, {} {}! Jūs esat laimējusi {} dolārus!\n".format(vards1[i], uzvards1[i], vecums2[i] * 100)
+    ierakstit(teksts, "faili/cilveks0.txt")
+
+with open("faili/cilveks0.txt", 'r', encoding='utf-8') as f:
+    visi = f.read()
+print(visi)
+
+# teksts.txt
+ierakstit("Sveiki, visi!", "faili/teksts.txt")
